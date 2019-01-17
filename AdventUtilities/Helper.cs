@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AdventUtilities
 {
@@ -15,14 +16,14 @@ namespace AdventUtilities
         /// <typeparam name="T">The model type</typeparam>
         /// <param name="inputPath">The file to load</param>
         /// <returns>a model</returns>
-        public static T LoadFromFile<T>(string inputPath) where T: InputModel, new()
+        public static T LoadFromFile<T>(string inputPath) where T : InputModel, new()
         {
             var file = System.IO.File.ReadAllText(inputPath);
 
             using (var reader = new StringReader(file))
             {
                 string line = reader.ReadLine();
-                var model = new T {Input = line};
+                var model = new T { Input = line };
                 model.LoadInput();
                 return model;
             }
@@ -51,7 +52,7 @@ namespace AdventUtilities
         /// <typeparam name="T">The model type</typeparam>
         /// <param name="inputPath">The file to load</param>
         /// <returns>a list</returns>
-        public static List<T> LoadAllFromFile<T>(string inputPath) where T: InputModel, new()
+        public static List<T> LoadAllFromFile<T>(string inputPath) where T : InputModel, new()
         {
             var file = System.IO.File.ReadAllText(inputPath);
             var list = new List<T>();
@@ -99,6 +100,11 @@ namespace AdventUtilities
         {
             Console.Write("Press enter to continue...");
             Console.ReadLine();
+        }
+
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
     }
 }

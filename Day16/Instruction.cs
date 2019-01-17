@@ -14,5 +14,9 @@ namespace Day16
 
         public int OutputC { get; set; }
 
+        public override string ToString()
+        {
+            return $"[{OpCode} ({InputA}, {InputB}, {OutputC})]";
+        }
     }
 }

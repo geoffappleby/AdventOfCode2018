@@ -8,6 +8,8 @@ namespace Day16
 
     public enum Command
     {
+        //blank
+        noop,
         //addr (add register) stores into register C the result of adding register A and register B.
         addr,
         //addi (add immediate) stores into register C the result of adding register A and value B.
@@ -53,112 +55,184 @@ namespace Day16
     {
         public Registers Execute(Command command, Sample sample)
         {
-            Registers ret = new Registers();
+            var ret = new Registers();
             ret.Register0.Value = sample.Before.Register0.Value;
             ret.Register1.Value = sample.Before.Register1.Value;
             ret.Register2.Value = sample.Before.Register2.Value;
             ret.Register3.Value = sample.Before.Register3.Value;
 
-            switch (command)
-            {
-                //addr (add register) stores into register C the result of adding register A and register B.
-                case Command.addr:
-                    var a = 0;
-                    //find register a
-                    switch (sample.Instruction.InputA)
-                    {
-                        case 0:
-                            a = ret.Register0.Value;
-                            break;
-                        case 1:
-                            a = ret.Register1.Value;
-                            break;
-
-                    }
-                    break;
-
-                //addi (add immediate) stores into register C the result of adding register A and value B.
-                case Command.addi:
-                    break;
-
-                //mulr (multiply register) stores into register C the result of multiplying register A and register B.
-                case Command.mulr:
-                    break;
-
-                //muli (multiply immediate) stores into register C the result of multiplying register A and value B.
-                case Command.muli:
-                    break;
-
-                //banr (bitwise AND register) stores into register C the result of the bitwise AND of register A and register B.
-                case Command.banr:
-                    break;
-
-                //bani (bitwise AND immediate) stores into register C the result of the bitwise AND of register A and value B.
-                case Command.bani:
-                    break;
-
-                //borr (bitwise OR register) stores into register C the result of the bitwise OR of register A and register B.
-                case Command.borr:
-                    break;
-
-                //bori (bitwise OR immediate) stores into register C the result of the bitwise OR of register A and value B.
-                case Command.bori:
-                    break;
-
-                //setr (set register) copies the contents of register A into register C. (Input B is ignored.)
-                case Command.setr:
-                    break;
-
-                //seti (set immediate) stores value A into register C. (Input B is ignored.)
-                case Command.seti:
-                    break;
-
-                //gtir (greater-than immediate/register) sets register C to 1 if value A is greater than register B. Otherwise, register C is set to 0.
-                case Command.gtir:
-                    break;
-
-                //gtri (greater-than register/immediate) sets register C to 1 if register A is greater than value B. Otherwise, register C is set to 0.
-                case Command.gtri:
-                    break;
-
-                //gtrr (greater-than register/register) sets register C to 1 if register A is greater than register B. Otherwise, register C is set to 0.
-                case Command.gtrr:
-                    break;
-
-                //eqir (equal immediate/register) sets register C to 1 if value A is equal to register B. Otherwise, register C is set to 0.
-                case Command.eqir:
-                    break;
-
-                //eqri (equal register/immediate) sets register C to 1 if register A is equal to value B. Otherwise, register C is set to 0.
-                case Command.eqri:
-                    break;
-
-                //eqrr (equal register/register) sets register C to 1 if register A is equal to register B. Otherwise, register C is set to 0.    
-                case Command.eqrr:
-                    break;
-
-            }
+            ExecuteInstruction(sample.Instruction, ret, command);
 
             return ret;
         }
 
+        
         private int GetValueFromRegister(int register, Registers registers)
         {
             switch (register)
             {
                 case 0:
-                    return = registers.Register0.Value;
-                    break;
+                    return registers.Register0.Value;
+                case 1:
+                    return registers.Register1.Value;
+                case 2:
+                    return registers.Register2.Value;
+                case 3:
+                    return registers.Register3.Value;
+            }
+
+            return -1;
+        }
+
+        private void SetValueInRegister(int register, Registers registers, int value)
+        {
+            switch (register)
+            {
                 case 0:
-                    return = registers.Register0.Value;
+                    registers.Register0.Value = value;
                     break;
-                case 0:
-                    return = registers.Register0.Value;
+                case 1:
+                    registers.Register1.Value = value;
+                    break;
+                case 2:
+                    registers.Register2.Value = value;
+                    break;
+                case 3:
+                    registers.Register3.Value = value;
                     break;
 
             }
-
         }
 
+        public void ExecuteInstruction(Instruction instruction, Registers executionRegisters, Command commandOverride = Command.noop)
+        {
+            int a, b, c;
+            if (commandOverride == Command.noop)
+            {
+                commandOverride = instruction.OpCode.Command;
+            }
+
+            switch (commandOverride)
+            {
+                //addr (add register) stores into register C the result of adding register A and register B.
+                case Command.addr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    c = a + b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //addi (add immediate) stores into register C the result of adding register A and value B.
+                case Command.addi:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    c = a + b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //mulr (multiply register) stores into register C the result of multiplying register A and register B.
+                case Command.mulr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    c = a * b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //muli (multiply immediate) stores into register C the result of multiplying register A and value B.
+                case Command.muli:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    c = a * b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //banr (bitwise AND register) stores into register C the result of the bitwise AND of register A and register B.
+                case Command.banr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    c = a & b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //bani (bitwise AND immediate) stores into register C the result of the bitwise AND of register A and value B.
+                case Command.bani:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    c = a & b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //borr (bitwise OR register) stores into register C the result of the bitwise OR of register A and register B.
+                case Command.borr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    c = a | b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //bori (bitwise OR immediate) stores into register C the result of the bitwise OR of register A and value B.
+                case Command.bori:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    c = a | b;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, c);
+                    break;
+
+                //setr (set register) copies the contents of register A into register C. (Input B is ignored.)
+                case Command.setr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a);
+                    break;
+
+                //seti (set immediate) stores value A into register C. (Input B is ignored.)
+                case Command.seti:
+                    a = instruction.InputA;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a);
+                    break;
+
+                //gtir (greater-than immediate/register) sets register C to 1 if value A is greater than register B. Otherwise, register C is set to 0.
+                case Command.gtir:
+                    a = instruction.InputA;
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a > b ? 1 : 0);
+                    break;
+
+                //gtri (greater-than register/immediate) sets register C to 1 if register A is greater than value B. Otherwise, register C is set to 0.
+                case Command.gtri:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a > b ? 1 : 0);
+                    break;
+
+                //gtrr (greater-than register/register) sets register C to 1 if register A is greater than register B. Otherwise, register C is set to 0.
+                case Command.gtrr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a > b ? 1 : 0);
+                    break;
+
+                //eqir (equal immediate/register) sets register C to 1 if value A is equal to register B. Otherwise, register C is set to 0.
+                case Command.eqir:
+                    a = instruction.InputA;
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a == b ? 1 : 0);
+                    break;
+
+                //eqri (equal register/immediate) sets register C to 1 if register A is equal to value B. Otherwise, register C is set to 0.
+                case Command.eqri:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = instruction.InputB;
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a == b ? 1 : 0);
+                    break;
+
+                //eqrr (equal register/register) sets register C to 1 if register A is equal to register B. Otherwise, register C is set to 0.    
+                case Command.eqrr:
+                    a = GetValueFromRegister(instruction.InputA, executionRegisters);
+                    b = GetValueFromRegister(instruction.InputB, executionRegisters);
+                    SetValueInRegister(instruction.OutputC, executionRegisters, a == b ? 1 : 0);
+                    break;
+
+            }
+        }
     }
 }

@@ -18,5 +18,20 @@ namespace Day16
         {
             Value = value;
         }
+
+        public override string ToString()
+        {
+            return $"{Value}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Register;
+            if (other == null)
+            {
+                return base.Equals(obj);
+            }
+            return other.Value == Value;
+        }
     }
 }
