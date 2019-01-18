@@ -13,7 +13,7 @@ namespace Day5
         static void Main(string[] args)
         {
             //read in the data
-            var line = Helper.LoadFromFile(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day5\inputs.txt");
+            var line = Helper.LoadFromFile(@"..\..\..\inputs.txt");
 
             Console.WriteLine($"Polymer read. It's {line.Length} units long..");
             Helper.Pause();

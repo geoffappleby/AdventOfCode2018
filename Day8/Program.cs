@@ -7,7 +7,7 @@ namespace Day8
     {
         static void Main(string[] args)
         {
-            var data = Helper.LoadFromFile(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day8\inputs.txt");
+            var data = Helper.LoadFromFile(@"..\..\..\inputs.txt");
             var licenseData = data.Split(' ');
 
             int currentIndex = 0;

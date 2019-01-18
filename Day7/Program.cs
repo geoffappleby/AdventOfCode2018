@@ -11,7 +11,7 @@ namespace Day7
         static void Main(string[] args)
         {
             //load the instructions
-            var stepList = Helper.LoadAllFromFile<StepInstruction>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day7\inputs.txt");
+            var stepList = Helper.LoadAllFromFile<StepInstruction>(@"..\..\..\inputs.txt");
             
             //load a dictionary of all the steps, populating all the next pointers
             var steps = new Dictionary<string, Step>();

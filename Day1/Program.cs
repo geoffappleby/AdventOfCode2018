@@ -8,8 +8,9 @@ namespace Day1
     {
         static void Main(string[] args)
         {
-            var lines = Helper.LoadAllFromFile(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day1\inputs.txt");
 
+            var lines = Helper.LoadAllFromFile(@"..\..\..\inputs.txt");
+            
             int newValue;
             int total = 0;
             var seenFrequencies = new List<int> {total};

@@ -11,7 +11,7 @@ namespace Day6
         static void Main(string[] args)
         {
             //read the coordinates
-            var coords = Helper.LoadAllFromFile<CoOrdinate>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day6\inputs.txt");
+            var coords = Helper.LoadAllFromFile<CoOrdinate>(@"..\..\..\inputs.txt");
 
             //set them all with arbitrary ids
             for (int i = 0; i < coords.Count; i++)

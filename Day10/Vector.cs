@@ -24,8 +24,8 @@ namespace Day10
 
             X = int.Parse(Input.Substring(startIndex, endIndex - startIndex));
 
-            startIndex = endIndex + 2;
-            if (Input[startIndex] == ' ')
+            startIndex = endIndex + 1;
+            while (Input[startIndex] == ' ')
             {
                 startIndex++;
             }
@@ -42,8 +42,8 @@ namespace Day10
 
             Vx = int.Parse(Input.Substring(startIndex, endIndex - startIndex));
 
-            startIndex = endIndex + 2;
-            if (Input[startIndex] == ' ')
+            startIndex = endIndex + 1;
+            while (Input[startIndex] == ' ')
             {
                 startIndex++;
             }

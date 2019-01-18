@@ -14,7 +14,7 @@ namespace Day4
         static void Main(string[] args)
         {
 
-            var logs = Helper.LoadAllFromFile<LogEntry>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day4\inputs.txt");
+            var logs = Helper.LoadAllFromFile<LogEntry>(@"..\..\..\inputs.txt");
 
             Console.WriteLine($"{logs.Count} logs read.");
             Helper.Pause();

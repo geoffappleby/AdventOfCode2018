@@ -11,7 +11,7 @@ namespace Day3
     {
         static void Main(string[] args)
         {
-            var claims = Helper.LoadAllFromFile<Claim>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day3\inputs.txt");
+            var claims = Helper.LoadAllFromFile<Claim>(@"..\..\..\inputs.txt");
 
             Console.WriteLine($"{claims.Count} claims read.");
             Helper.Pause();

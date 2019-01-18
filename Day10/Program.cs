@@ -12,7 +12,7 @@ namespace Day10
     {
         static void Main(string[] args)
         {
-            var points = Helper.LoadAllFromFile<Vector>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day10\inputs.txt");
+            var points = Helper.LoadAllFromFile<Vector>(@"..\..\..\inputs3.txt");
 
             Console.WriteLine($"Read {points.Count} points from the file.");
             Helper.Pause();
@@ -21,7 +21,7 @@ namespace Day10
             var minX = points.Min(x => x.X);
             var minY = points.Min(x => x.Y);
             long counter = 0;
-            while (minX < 0 || minY < 0)
+            while (minX < -100 || minY < -100)
             {
                 points.ForEach(x => x.Move());
                 counter++;
@@ -46,7 +46,7 @@ namespace Day10
 
         private static void PrintMessage(List<Vector> points, long timeElapsed)
         {
-            var path = @"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day10\outputs\";
+            var path = @"C:\Users\geoff.appleby\source\repos\AdventOfCode2018\Day10\outputs\";
             var file = File.CreateText($"{path}{timeElapsed}.txt");
 
             var gridX = points.Max(x => x.X) + 5;

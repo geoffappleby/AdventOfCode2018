@@ -14,7 +14,7 @@ namespace Day2
         static void Main(string[] args)
         {
             //load in the stuff
-            var codes = Helper.LoadAllFromFile<Code>(@"C:\Users\geoff.appleby\source\repos\AdventOfCode\Day2\inputs.txt");
+            var codes = Helper.LoadAllFromFile<Code>(@"..\..\..\inputs.txt");
 
             //magic counting code
             var totalTwos = codes.Count(x => x.HasTwoCount);

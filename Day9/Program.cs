@@ -46,11 +46,19 @@ namespace Day9
             }
 
             Console.WriteLine($"And now for the final one....");
-            var (playerx, highScorex) = PlayGame(416, 7161700, doprint);
+
+            //part one, final answer
+            var (playerx, highScorex) = PlayGame(416, 71617, doprint);
             Console.WriteLine($"The high score was {highScorex}, won by player {playerx}.");
 
             Helper.Pause();
-            
+
+            Console.WriteLine($"And part two....");
+            //part two
+            (playerx, highScorex) = PlayGame(416, 7161700, doprint);
+            Console.WriteLine($"The high score was {highScorex}, won by player {playerx}.");
+
+            Helper.Pause();
         }
 
         /// <summary>
